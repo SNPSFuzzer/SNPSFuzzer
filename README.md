@@ -39,8 +39,6 @@ sudo apt-get --no-install-recommends install xmlto
 
 ```
 cd $SNPSFUZZER
-git submodule init
-git submodule update
 cd criu4snpsfuzzer
 make
 sudo make install
