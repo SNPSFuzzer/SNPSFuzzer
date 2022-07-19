@@ -84,7 +84,7 @@ static volatile u8
            stop_soon,                 /* Ctrl-C pressed?                   */
            child_timed_out,           /* Child timed out?                  */
            child_crashed;             /* Child crashed?                    */
-
+/*https://github.com/Proteas/afl-ios/blob/ios-afl-clang-fast/afl-fuzz.c*/ 
 /* ================ Proteas ================ */
 #ifdef USEMMAP
   static int g_shm_fd = -1;

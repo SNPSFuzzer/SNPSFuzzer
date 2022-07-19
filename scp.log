@@ -1,0 +1,399 @@
+rm -f hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-as as afl-g++ afl-clang afl-clang++ *.o *~ a.out core core.[1-9][0-9]* *.stackdump test .test test-instr .test-instr0 .test-instr1 qemu_mode/qemu-2.10.0.tar.bz2 afl-qemu-trace
+rm -rf out_dir qemu_mode/qemu-2.10.0
+make -C llvm_mode clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../afl-clang-fast ../afl-llvm-pass.so ../afl-llvm-rt.o ../afl-llvm-rt-32.o ../afl-llvm-rt-64.o ../afl-clang-fast++
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+make -C libdislocator clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libdislocator.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+make -C libtokencap clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libtokencap.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+[*] Checking for the ability to compile x86 code...
+[+] Everything seems to be working, ready to compile.
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" -fPIC -shared -o hook_socket.so hook_socket.c -ldl
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gcc.c -o afl-gcc -ldl -lgvc -lcgraph -lm -lrt -Werror
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc $i; done
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"   -c -o aflnet.o aflnet.c
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"  afl-fuzz.c aflnet.o ./criu/lib/c/criu.o -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -o afl-fuzz -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-replay.c aflnet.o -o afl-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" aflnet-replay.c aflnet.o -o aflnet-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-showmap.c -o afl-showmap -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-tmin.c -o afl-tmin -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gotcpu.c -o afl-gotcpu -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-analyze.c -o afl-analyze -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-as.c -o afl-as -ldl -lgvc -lcgraph -lm -lrt -Werror
+ln -sf afl-as as
+[*] Testing the CC wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN; AFL_QUIET=1 AFL_INST_RATIO=100 AFL_PATH=. ./afl-gcc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" test-instr.c -o test-instr -ldl -lgvc -lcgraph -lm -lrt -Werror
+./afl-showmap -m none -q -o .test-instr0 ./test-instr < /dev/null
+echo 1 | ./afl-showmap -m none -q -o .test-instr1 ./test-instr
+[+] All right, the instrumentation seems to be working!
+[+] LLVM users: see llvm_mode/README.llvm for a faster alternative to afl-gcc.
+[+] All done! Be sure to review README - it's pretty short and useful.
+mkdir -p -m 755 ${DESTDIR}/usr/local/bin ${DESTDIR}/usr/local/lib/afl ${DESTDIR}/usr/local/share/doc/afl ${DESTDIR}/usr/local/share/afl
+rm -f ${DESTDIR}/usr/local/bin/afl-plot.sh
+install -m 755 hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-plot afl-cmin afl-whatsup ${DESTDIR}/usr/local/bin
+rm -f ${DESTDIR}/usr/local/bin/afl-as
+if [ -f afl-qemu-trace ]; then install -m 755 afl-qemu-trace ${DESTDIR}/usr/local/bin; fi
+if [ -f afl-clang-fast -a -f afl-llvm-pass.so -a -f afl-llvm-rt.o ]; then set -e; install -m 755 afl-clang-fast ${DESTDIR}/usr/local/bin; ln -sf afl-clang-fast ${DESTDIR}/usr/local/bin/afl-clang-fast++; install -m 755 afl-llvm-pass.so afl-llvm-rt.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-32.o ]; then set -e; install -m 755 afl-llvm-rt-32.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-64.o ]; then set -e; install -m 755 afl-llvm-rt-64.o ${DESTDIR}/usr/local/lib/afl; fi
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc ${DESTDIR}/usr/local/bin/$i; done
+install -m 755 afl-as ${DESTDIR}/usr/local/lib/afl
+ln -sf afl-as ${DESTDIR}/usr/local/lib/afl/as
+install -m 644 docs/README docs/ChangeLog docs/*.txt ${DESTDIR}/usr/local/share/doc/afl
+cp -r testcases/ ${DESTDIR}/usr/local/share/afl
+cp -r dictionaries/ ${DESTDIR}/usr/local/share/afl
+cp hook_socket.so /usr/local/lib/
+#rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
+#cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
+sudo ldconfig
+rm -f hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-as as afl-g++ afl-clang afl-clang++ *.o *~ a.out core core.[1-9][0-9]* *.stackdump test .test test-instr .test-instr0 .test-instr1 qemu_mode/qemu-2.10.0.tar.bz2 afl-qemu-trace
+rm -rf out_dir qemu_mode/qemu-2.10.0
+make -C llvm_mode clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../afl-clang-fast ../afl-llvm-pass.so ../afl-llvm-rt.o ../afl-llvm-rt-32.o ../afl-llvm-rt-64.o ../afl-clang-fast++
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+make -C libdislocator clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libdislocator.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+make -C libtokencap clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libtokencap.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+[*] Checking for the ability to compile x86 code...
+[+] Everything seems to be working, ready to compile.
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" -fPIC -shared -o hook_socket.so hook_socket.c -ldl
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gcc.c -o afl-gcc -ldl -lgvc -lcgraph -lm -lrt -Werror
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc $i; done
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"   -c -o aflnet.o aflnet.c
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"  afl-fuzz.c aflnet.o ./criu/lib/c/criu.o -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -o afl-fuzz -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-replay.c aflnet.o -o afl-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" aflnet-replay.c aflnet.o -o aflnet-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-showmap.c -o afl-showmap -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-tmin.c -o afl-tmin -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gotcpu.c -o afl-gotcpu -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-analyze.c -o afl-analyze -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-as.c -o afl-as -ldl -lgvc -lcgraph -lm -lrt -Werror
+ln -sf afl-as as
+[*] Testing the CC wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN; AFL_QUIET=1 AFL_INST_RATIO=100 AFL_PATH=. ./afl-gcc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" test-instr.c -o test-instr -ldl -lgvc -lcgraph -lm -lrt -Werror
+./afl-showmap -m none -q -o .test-instr0 ./test-instr < /dev/null
+echo 1 | ./afl-showmap -m none -q -o .test-instr1 ./test-instr
+[+] All right, the instrumentation seems to be working!
+[+] LLVM users: see llvm_mode/README.llvm for a faster alternative to afl-gcc.
+[+] All done! Be sure to review README - it's pretty short and useful.
+mkdir -p -m 755 ${DESTDIR}/usr/local/bin ${DESTDIR}/usr/local/lib/afl ${DESTDIR}/usr/local/share/doc/afl ${DESTDIR}/usr/local/share/afl
+rm -f ${DESTDIR}/usr/local/bin/afl-plot.sh
+install -m 755 hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-plot afl-cmin afl-whatsup ${DESTDIR}/usr/local/bin
+rm -f ${DESTDIR}/usr/local/bin/afl-as
+if [ -f afl-qemu-trace ]; then install -m 755 afl-qemu-trace ${DESTDIR}/usr/local/bin; fi
+if [ -f afl-clang-fast -a -f afl-llvm-pass.so -a -f afl-llvm-rt.o ]; then set -e; install -m 755 afl-clang-fast ${DESTDIR}/usr/local/bin; ln -sf afl-clang-fast ${DESTDIR}/usr/local/bin/afl-clang-fast++; install -m 755 afl-llvm-pass.so afl-llvm-rt.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-32.o ]; then set -e; install -m 755 afl-llvm-rt-32.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-64.o ]; then set -e; install -m 755 afl-llvm-rt-64.o ${DESTDIR}/usr/local/lib/afl; fi
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc ${DESTDIR}/usr/local/bin/$i; done
+install -m 755 afl-as ${DESTDIR}/usr/local/lib/afl
+ln -sf afl-as ${DESTDIR}/usr/local/lib/afl/as
+install -m 644 docs/README docs/ChangeLog docs/*.txt ${DESTDIR}/usr/local/share/doc/afl
+cp -r testcases/ ${DESTDIR}/usr/local/share/afl
+cp -r dictionaries/ ${DESTDIR}/usr/local/share/afl
+cp hook_socket.so /usr/local/lib/
+#rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
+#cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
+sudo ldconfig
+rm -f hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-as as afl-g++ afl-clang afl-clang++ *.o *~ a.out core core.[1-9][0-9]* *.stackdump test .test test-instr .test-instr0 .test-instr1 qemu_mode/qemu-2.10.0.tar.bz2 afl-qemu-trace
+rm -rf out_dir qemu_mode/qemu-2.10.0
+make -C llvm_mode clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../afl-clang-fast ../afl-llvm-pass.so ../afl-llvm-rt.o ../afl-llvm-rt-32.o ../afl-llvm-rt-64.o ../afl-clang-fast++
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+make -C libdislocator clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libdislocator.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+make -C libtokencap clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libtokencap.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+[*] Checking for the ability to compile x86 code...
+[+] Everything seems to be working, ready to compile.
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" -fPIC -shared -o hook_socket.so hook_socket.c -ldl
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gcc.c -o afl-gcc -ldl -lgvc -lcgraph -lm -lrt -Werror
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc $i; done
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"   -c -o aflnet.o aflnet.c
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"  afl-fuzz.c aflnet.o ./criu/lib/c/criu.o -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -o afl-fuzz -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-replay.c aflnet.o -o afl-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" aflnet-replay.c aflnet.o -o aflnet-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-showmap.c -o afl-showmap -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-tmin.c -o afl-tmin -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gotcpu.c -o afl-gotcpu -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-analyze.c -o afl-analyze -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-as.c -o afl-as -ldl -lgvc -lcgraph -lm -lrt -Werror
+ln -sf afl-as as
+[*] Testing the CC wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN; AFL_QUIET=1 AFL_INST_RATIO=100 AFL_PATH=. ./afl-gcc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" test-instr.c -o test-instr -ldl -lgvc -lcgraph -lm -lrt -Werror
+./afl-showmap -m none -q -o .test-instr0 ./test-instr < /dev/null
+echo 1 | ./afl-showmap -m none -q -o .test-instr1 ./test-instr
+[+] All right, the instrumentation seems to be working!
+[+] LLVM users: see llvm_mode/README.llvm for a faster alternative to afl-gcc.
+[+] All done! Be sure to review README - it's pretty short and useful.
+mkdir -p -m 755 ${DESTDIR}/usr/local/bin ${DESTDIR}/usr/local/lib/afl ${DESTDIR}/usr/local/share/doc/afl ${DESTDIR}/usr/local/share/afl
+rm -f ${DESTDIR}/usr/local/bin/afl-plot.sh
+install -m 755 hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-plot afl-cmin afl-whatsup ${DESTDIR}/usr/local/bin
+rm -f ${DESTDIR}/usr/local/bin/afl-as
+if [ -f afl-qemu-trace ]; then install -m 755 afl-qemu-trace ${DESTDIR}/usr/local/bin; fi
+if [ -f afl-clang-fast -a -f afl-llvm-pass.so -a -f afl-llvm-rt.o ]; then set -e; install -m 755 afl-clang-fast ${DESTDIR}/usr/local/bin; ln -sf afl-clang-fast ${DESTDIR}/usr/local/bin/afl-clang-fast++; install -m 755 afl-llvm-pass.so afl-llvm-rt.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-32.o ]; then set -e; install -m 755 afl-llvm-rt-32.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-64.o ]; then set -e; install -m 755 afl-llvm-rt-64.o ${DESTDIR}/usr/local/lib/afl; fi
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc ${DESTDIR}/usr/local/bin/$i; done
+install -m 755 afl-as ${DESTDIR}/usr/local/lib/afl
+ln -sf afl-as ${DESTDIR}/usr/local/lib/afl/as
+install -m 644 docs/README docs/ChangeLog docs/*.txt ${DESTDIR}/usr/local/share/doc/afl
+cp -r testcases/ ${DESTDIR}/usr/local/share/afl
+cp -r dictionaries/ ${DESTDIR}/usr/local/share/afl
+cp hook_socket.so /usr/local/lib/
+#rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
+#cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
+sudo ldconfig
+rm -f hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-as as afl-g++ afl-clang afl-clang++ *.o *~ a.out core core.[1-9][0-9]* *.stackdump test .test test-instr .test-instr0 .test-instr1 qemu_mode/qemu-2.10.0.tar.bz2 afl-qemu-trace
+rm -rf out_dir qemu_mode/qemu-2.10.0
+make -C llvm_mode clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../afl-clang-fast ../afl-llvm-pass.so ../afl-llvm-rt.o ../afl-llvm-rt-32.o ../afl-llvm-rt-64.o ../afl-clang-fast++
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+make -C libdislocator clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libdislocator.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+make -C libtokencap clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libtokencap.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+[*] Checking for the ability to compile x86 code...
+[+] Everything seems to be working, ready to compile.
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" -fPIC -shared -o hook_socket.so hook_socket.c -ldl
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gcc.c -o afl-gcc -ldl -lgvc -lcgraph -lm -lrt -Werror
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc $i; done
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"   -c -o aflnet.o aflnet.c
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"  afl-fuzz.c aflnet.o ./criu/lib/c/criu.o -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -o afl-fuzz -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-replay.c aflnet.o -o afl-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" aflnet-replay.c aflnet.o -o aflnet-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-showmap.c -o afl-showmap -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-tmin.c -o afl-tmin -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gotcpu.c -o afl-gotcpu -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-analyze.c -o afl-analyze -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-as.c -o afl-as -ldl -lgvc -lcgraph -lm -lrt -Werror
+ln -sf afl-as as
+[*] Testing the CC wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN; AFL_QUIET=1 AFL_INST_RATIO=100 AFL_PATH=. ./afl-gcc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" test-instr.c -o test-instr -ldl -lgvc -lcgraph -lm -lrt -Werror
+./afl-showmap -m none -q -o .test-instr0 ./test-instr < /dev/null
+echo 1 | ./afl-showmap -m none -q -o .test-instr1 ./test-instr
+[+] All right, the instrumentation seems to be working!
+[+] LLVM users: see llvm_mode/README.llvm for a faster alternative to afl-gcc.
+[+] All done! Be sure to review README - it's pretty short and useful.
+mkdir -p -m 755 ${DESTDIR}/usr/local/bin ${DESTDIR}/usr/local/lib/afl ${DESTDIR}/usr/local/share/doc/afl ${DESTDIR}/usr/local/share/afl
+rm -f ${DESTDIR}/usr/local/bin/afl-plot.sh
+install -m 755 hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-plot afl-cmin afl-whatsup ${DESTDIR}/usr/local/bin
+rm -f ${DESTDIR}/usr/local/bin/afl-as
+if [ -f afl-qemu-trace ]; then install -m 755 afl-qemu-trace ${DESTDIR}/usr/local/bin; fi
+if [ -f afl-clang-fast -a -f afl-llvm-pass.so -a -f afl-llvm-rt.o ]; then set -e; install -m 755 afl-clang-fast ${DESTDIR}/usr/local/bin; ln -sf afl-clang-fast ${DESTDIR}/usr/local/bin/afl-clang-fast++; install -m 755 afl-llvm-pass.so afl-llvm-rt.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-32.o ]; then set -e; install -m 755 afl-llvm-rt-32.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-64.o ]; then set -e; install -m 755 afl-llvm-rt-64.o ${DESTDIR}/usr/local/lib/afl; fi
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc ${DESTDIR}/usr/local/bin/$i; done
+install -m 755 afl-as ${DESTDIR}/usr/local/lib/afl
+ln -sf afl-as ${DESTDIR}/usr/local/lib/afl/as
+install -m 644 docs/README docs/ChangeLog docs/*.txt ${DESTDIR}/usr/local/share/doc/afl
+cp -r testcases/ ${DESTDIR}/usr/local/share/afl
+cp -r dictionaries/ ${DESTDIR}/usr/local/share/afl
+cp hook_socket.so /usr/local/lib/
+#rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
+#cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
+sudo ldconfig
+rm -f hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-as as afl-g++ afl-clang afl-clang++ *.o *~ a.out core core.[1-9][0-9]* *.stackdump test .test test-instr .test-instr0 .test-instr1 qemu_mode/qemu-2.10.0.tar.bz2 afl-qemu-trace
+rm -rf out_dir qemu_mode/qemu-2.10.0
+make -C llvm_mode clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../afl-clang-fast ../afl-llvm-pass.so ../afl-llvm-rt.o ../afl-llvm-rt-32.o ../afl-llvm-rt-64.o ../afl-clang-fast++
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+make -C libdislocator clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libdislocator.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+make -C libtokencap clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libtokencap.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+[*] Checking for the ability to compile x86 code...
+[+] Everything seems to be working, ready to compile.
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" -fPIC -shared -o hook_socket.so hook_socket.c -ldl
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gcc.c -o afl-gcc -ldl -lgvc -lcgraph -lm -lrt -Werror
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc $i; done
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"   -c -o aflnet.o aflnet.c
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"  afl-fuzz.c aflnet.o ./criu/lib/c/criu.o -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -o afl-fuzz -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-replay.c aflnet.o -o afl-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" aflnet-replay.c aflnet.o -o aflnet-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-showmap.c -o afl-showmap -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-tmin.c -o afl-tmin -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gotcpu.c -o afl-gotcpu -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-analyze.c -o afl-analyze -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-as.c -o afl-as -ldl -lgvc -lcgraph -lm -lrt -Werror
+ln -sf afl-as as
+[*] Testing the CC wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN; AFL_QUIET=1 AFL_INST_RATIO=100 AFL_PATH=. ./afl-gcc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" test-instr.c -o test-instr -ldl -lgvc -lcgraph -lm -lrt -Werror
+./afl-showmap -m none -q -o .test-instr0 ./test-instr < /dev/null
+echo 1 | ./afl-showmap -m none -q -o .test-instr1 ./test-instr
+[+] All right, the instrumentation seems to be working!
+[+] LLVM users: see llvm_mode/README.llvm for a faster alternative to afl-gcc.
+[+] All done! Be sure to review README - it's pretty short and useful.
+mkdir -p -m 755 ${DESTDIR}/usr/local/bin ${DESTDIR}/usr/local/lib/afl ${DESTDIR}/usr/local/share/doc/afl ${DESTDIR}/usr/local/share/afl
+rm -f ${DESTDIR}/usr/local/bin/afl-plot.sh
+install -m 755 hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-plot afl-cmin afl-whatsup ${DESTDIR}/usr/local/bin
+rm -f ${DESTDIR}/usr/local/bin/afl-as
+if [ -f afl-qemu-trace ]; then install -m 755 afl-qemu-trace ${DESTDIR}/usr/local/bin; fi
+if [ -f afl-clang-fast -a -f afl-llvm-pass.so -a -f afl-llvm-rt.o ]; then set -e; install -m 755 afl-clang-fast ${DESTDIR}/usr/local/bin; ln -sf afl-clang-fast ${DESTDIR}/usr/local/bin/afl-clang-fast++; install -m 755 afl-llvm-pass.so afl-llvm-rt.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-32.o ]; then set -e; install -m 755 afl-llvm-rt-32.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-64.o ]; then set -e; install -m 755 afl-llvm-rt-64.o ${DESTDIR}/usr/local/lib/afl; fi
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc ${DESTDIR}/usr/local/bin/$i; done
+install -m 755 afl-as ${DESTDIR}/usr/local/lib/afl
+ln -sf afl-as ${DESTDIR}/usr/local/lib/afl/as
+install -m 644 docs/README docs/ChangeLog docs/*.txt ${DESTDIR}/usr/local/share/doc/afl
+cp -r testcases/ ${DESTDIR}/usr/local/share/afl
+cp -r dictionaries/ ${DESTDIR}/usr/local/share/afl
+cp hook_socket.so /usr/local/lib/
+#rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
+#cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
+sudo ldconfig
+rm -f hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-as as afl-g++ afl-clang afl-clang++ *.o *~ a.out core core.[1-9][0-9]* *.stackdump test .test test-instr .test-instr0 .test-instr1 qemu_mode/qemu-2.10.0.tar.bz2 afl-qemu-trace
+rm -rf out_dir qemu_mode/qemu-2.10.0
+make -C llvm_mode clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../afl-clang-fast ../afl-llvm-pass.so ../afl-llvm-rt.o ../afl-llvm-rt-32.o ../afl-llvm-rt-64.o ../afl-clang-fast++
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+make -C libdislocator clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libdislocator.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+make -C libtokencap clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libtokencap.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+[*] Checking for the ability to compile x86 code...
+[+] Everything seems to be working, ready to compile.
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" -fPIC -shared -o hook_socket.so hook_socket.c -ldl
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gcc.c -o afl-gcc -ldl -lgvc -lcgraph -lm -lrt -Werror
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc $i; done
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"   -c -o aflnet.o aflnet.c
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"  afl-fuzz.c aflnet.o ./criu/lib/c/criu.o -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -o afl-fuzz -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-replay.c aflnet.o -o afl-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" aflnet-replay.c aflnet.o -o aflnet-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-showmap.c -o afl-showmap -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-tmin.c -o afl-tmin -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gotcpu.c -o afl-gotcpu -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-analyze.c -o afl-analyze -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-as.c -o afl-as -ldl -lgvc -lcgraph -lm -lrt -Werror
+ln -sf afl-as as
+[*] Testing the CC wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN; AFL_QUIET=1 AFL_INST_RATIO=100 AFL_PATH=. ./afl-gcc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" test-instr.c -o test-instr -ldl -lgvc -lcgraph -lm -lrt -Werror
+./afl-showmap -m none -q -o .test-instr0 ./test-instr < /dev/null
+echo 1 | ./afl-showmap -m none -q -o .test-instr1 ./test-instr
+[+] All right, the instrumentation seems to be working!
+[+] LLVM users: see llvm_mode/README.llvm for a faster alternative to afl-gcc.
+[+] All done! Be sure to review README - it's pretty short and useful.
+mkdir -p -m 755 ${DESTDIR}/usr/local/bin ${DESTDIR}/usr/local/lib/afl ${DESTDIR}/usr/local/share/doc/afl ${DESTDIR}/usr/local/share/afl
+rm -f ${DESTDIR}/usr/local/bin/afl-plot.sh
+install -m 755 hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-plot afl-cmin afl-whatsup ${DESTDIR}/usr/local/bin
+rm -f ${DESTDIR}/usr/local/bin/afl-as
+if [ -f afl-qemu-trace ]; then install -m 755 afl-qemu-trace ${DESTDIR}/usr/local/bin; fi
+if [ -f afl-clang-fast -a -f afl-llvm-pass.so -a -f afl-llvm-rt.o ]; then set -e; install -m 755 afl-clang-fast ${DESTDIR}/usr/local/bin; ln -sf afl-clang-fast ${DESTDIR}/usr/local/bin/afl-clang-fast++; install -m 755 afl-llvm-pass.so afl-llvm-rt.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-32.o ]; then set -e; install -m 755 afl-llvm-rt-32.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-64.o ]; then set -e; install -m 755 afl-llvm-rt-64.o ${DESTDIR}/usr/local/lib/afl; fi
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc ${DESTDIR}/usr/local/bin/$i; done
+install -m 755 afl-as ${DESTDIR}/usr/local/lib/afl
+ln -sf afl-as ${DESTDIR}/usr/local/lib/afl/as
+install -m 644 docs/README docs/ChangeLog docs/*.txt ${DESTDIR}/usr/local/share/doc/afl
+cp -r testcases/ ${DESTDIR}/usr/local/share/afl
+cp -r dictionaries/ ${DESTDIR}/usr/local/share/afl
+cp hook_socket.so /usr/local/lib/
+#rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
+#cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
+sudo ldconfig
+rm -f hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-as as afl-g++ afl-clang afl-clang++ *.o *~ a.out core core.[1-9][0-9]* *.stackdump test .test test-instr .test-instr0 .test-instr1 qemu_mode/qemu-2.10.0.tar.bz2 afl-qemu-trace
+rm -rf out_dir qemu_mode/qemu-2.10.0
+make -C llvm_mode clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]* test-instr .test-instr0 .test-instr1 
+rm -f ../afl-clang-fast ../afl-llvm-pass.so ../afl-llvm-rt.o ../afl-llvm-rt-32.o ../afl-llvm-rt-64.o ../afl-clang-fast++
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/llvm_mode'
+make -C libdislocator clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libdislocator.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libdislocator'
+make -C libtokencap clean
+make[1]: Entering directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+rm -f *.o *.so *~ a.out core core.[1-9][0-9]*
+rm -f libtokencap.so
+make[1]: Leaving directory '/home/ljq/Desktop/MajorReview/snpsfuzzer/libtokencap'
+[*] Checking for the ability to compile x86 code...
+[+] Everything seems to be working, ready to compile.
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" -fPIC -shared -o hook_socket.so hook_socket.c -ldl
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gcc.c -o afl-gcc -ldl -lgvc -lcgraph -lm -lrt -Werror
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc $i; done
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"   -c -o aflnet.o aflnet.c
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\"  afl-fuzz.c aflnet.o ./criu/lib/c/criu.o -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -o afl-fuzz -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-replay.c aflnet.o -o afl-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" aflnet-replay.c aflnet.o -o aflnet-replay -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-showmap.c -o afl-showmap -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-tmin.c -o afl-tmin -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-gotcpu.c -o afl-gotcpu -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-analyze.c -o afl-analyze -ldl -lgvc -lcgraph -lm -lrt -Werror
+cc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" afl-as.c -o afl-as -ldl -lgvc -lcgraph -lm -lrt -Werror
+ln -sf afl-as as
+[*] Testing the CC wrapper and instrumentation output...
+unset AFL_USE_ASAN AFL_USE_MSAN; AFL_QUIET=1 AFL_INST_RATIO=100 AFL_PATH=. ./afl-gcc -O0 -funroll-loops  -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result -DAFL_PATH=\"/usr/local/lib/afl\" -DDOC_PATH=\"/usr/local/share/doc/afl\" -DBIN_PATH=\"/usr/local/bin\" test-instr.c -o test-instr -ldl -lgvc -lcgraph -lm -lrt -Werror
+./afl-showmap -m none -q -o .test-instr0 ./test-instr < /dev/null
+echo 1 | ./afl-showmap -m none -q -o .test-instr1 ./test-instr
+[+] All right, the instrumentation seems to be working!
+[+] LLVM users: see llvm_mode/README.llvm for a faster alternative to afl-gcc.
+[+] All done! Be sure to review README - it's pretty short and useful.
+mkdir -p -m 755 ${DESTDIR}/usr/local/bin ${DESTDIR}/usr/local/lib/afl ${DESTDIR}/usr/local/share/doc/afl ${DESTDIR}/usr/local/share/afl
+rm -f ${DESTDIR}/usr/local/bin/afl-plot.sh
+install -m 755 hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze  afl-plot afl-cmin afl-whatsup ${DESTDIR}/usr/local/bin
+rm -f ${DESTDIR}/usr/local/bin/afl-as
+if [ -f afl-qemu-trace ]; then install -m 755 afl-qemu-trace ${DESTDIR}/usr/local/bin; fi
+if [ -f afl-clang-fast -a -f afl-llvm-pass.so -a -f afl-llvm-rt.o ]; then set -e; install -m 755 afl-clang-fast ${DESTDIR}/usr/local/bin; ln -sf afl-clang-fast ${DESTDIR}/usr/local/bin/afl-clang-fast++; install -m 755 afl-llvm-pass.so afl-llvm-rt.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-32.o ]; then set -e; install -m 755 afl-llvm-rt-32.o ${DESTDIR}/usr/local/lib/afl; fi
+if [ -f afl-llvm-rt-64.o ]; then set -e; install -m 755 afl-llvm-rt-64.o ${DESTDIR}/usr/local/lib/afl; fi
+set -e; for i in afl-g++ afl-clang afl-clang++; do ln -sf afl-gcc ${DESTDIR}/usr/local/bin/$i; done
+install -m 755 afl-as ${DESTDIR}/usr/local/lib/afl
+ln -sf afl-as ${DESTDIR}/usr/local/lib/afl/as
+install -m 644 docs/README docs/ChangeLog docs/*.txt ${DESTDIR}/usr/local/share/doc/afl
+cp -r testcases/ ${DESTDIR}/usr/local/share/afl
+cp -r dictionaries/ ${DESTDIR}/usr/local/share/afl
+cp hook_socket.so /usr/local/lib/
+#rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
+#cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
+sudo ldconfig

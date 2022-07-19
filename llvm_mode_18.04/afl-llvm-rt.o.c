@@ -152,14 +152,6 @@ static void __afl_start_forkserver(void) {
 
     if (read(FORKSRV_FD, &was_killed, 4) != 4) _exit(1);
 
-    if(was_killed==4399){
-      shmdt(__afl_area_ptr);
-    }else{
-      u8 *id_str = getenv(SHM_ENV_VAR);
-      u32 shm_id = atoi(id_str);
-      __afl_area_ptr = shmat(shm_id, NULL, 0);
-    }
-
     /* If we stopped the child in persistent mode, but there was a race
        condition and afl-fuzz already issued SIGKILL, write off the old
        process. */

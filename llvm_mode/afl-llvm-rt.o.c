@@ -84,6 +84,7 @@ static void __afl_map_shm(void) {
      hacky .init code to work correctly in projects such as OpenSSL. */
 
   if (id_str) {
+/*https://github.com/Proteas/afl-ios/blob/ios-afl-clang-fast/afl-fuzz.c*/ 
 #ifdef USEMMAP
     const char *shm_file_path = id_str;
     int shm_fd = -1;

@@ -15,7 +15,7 @@ We implement a prototype of SNPSFuzzer and evaluate it on a widely used open-sou
 ### Step I: clone
 
 ```bash
-git clone https://gitee.com/singlebone/snpsfuzzer.git
+git clone https://github.com/SNPSFuzzer/SNPSFuzzer.git
 export SNPSFUZZER=where the snpsfuzzer directory locates
 ```
 
@@ -37,8 +37,6 @@ sudo apt-get --no-install-recommends install xmlto
 
 ```
 cd $SNPSFUZZER
-git submodule init
-git submodule update
 cd criu4snpsfuzzer
 make
 sudo make install
@@ -65,6 +63,7 @@ make
 cd ..
 sudo make install
 ```
+
 
 
 
