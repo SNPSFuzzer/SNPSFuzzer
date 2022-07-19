@@ -12,17 +12,7 @@ typedef struct {
   char modifiable;                /* The modifiable flag. */
   unsigned int *state_sequence;   /* The annotation keeping the state feedback. */
   unsigned int state_count;       /* Number of states stored in state_sequence. */
-
 } region_t;
-
-typedef struct {
-  u32 score;                      /* Current score of the region*/
-  u32 message_depth;              /* The depth to reach the state*/              
-  u32 paths_discovered;
-  u32 fuzzs;                      /* Total number of fuzzs (i.e., inputs generated) */
-  u32 selected_times;             /* total number of times this state has been targeted/selected */
-} region_score_t;
-
 
 typedef struct {
   char *mdata; /* Buffer keeping the message data */
@@ -53,14 +43,6 @@ enum {
   /* 02 */ ROUND_ROBIN,
   /* 03 */ FAVOR
 };
-
-enum {
-  /* 00 */ INVALID_MCA,
-  /* 01 */ MCA_FIRST,
-  /* 02 */ MCA_LAST,
-  /* 03 */ MCA_SMART
-};
-
 
 // Initialize klist linked list data structure
 #define message_t_freer(x)

@@ -10,6 +10,7 @@
 
 #include "alloc-inl.h"
 #include "aflnet.h"
+
 // Protocol-specific functions for extracting requests and responses
 
 region_t* extract_requests_smtp(unsigned char* buf, unsigned int buf_size, unsigned int* region_count_ref)

@@ -24,21 +24,16 @@ MISC_PATH   = $(PREFIX)/share/afl
 
 # PROGS intentionally omit afl-as, which gets installed elsewhere.
 
-PROGS       = hook_socket.so afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze 
+PROGS       = afl-gcc afl-fuzz afl-replay aflnet-replay afl-showmap afl-tmin afl-gotcpu afl-analyze kill_process 
 SH_PROGS    = afl-plot afl-cmin afl-whatsup
 
-# CFLAGS     ?= -O0 -funroll-loops -DSNAPSHOT_DEBUG -DDEBUG
-CFLAGS     ?= -O0 -funroll-loops 
+CFLAGS     ?= -O3 -funroll-loops 
 CFLAGS     += -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign -Wno-unused-result \
 	      -DAFL_PATH=\"$(HELPER_PATH)\" -DDOC_PATH=\"$(DOC_PATH)\" \
 	      -DBIN_PATH=\"$(BIN_PATH)\"
 
-
-# INC_DIRS := -I ./criu/lib/c/ -I ./criu/soccr/
-# LIB_DIRS := -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr -lnet -lpcap
-
-INC_DIRS := -I ./criu/lib/c/ -I ./criu/soccr/
-LIB_DIRS := -L ./criu/lib/c/ -lcriu -L ./criu/soccr/ -lsoccr 
+INC_DIRS := -I ./criu4snpsfuzzer/lib/c/
+LIB_DIRS := -L ./criu4snpsfuzzer/lib/c/ -lcriu  
 
 ifneq "$(filter Linux GNU%,$(shell uname))" ""
   LDFLAGS  += -ldl -lgvc -lcgraph -lm -lrt -Werror
@@ -77,11 +72,8 @@ afl-as: afl-as.c afl-as.h $(COMM_HDR) | test_x86
 	$(CC) $(CFLAGS) $@.c -o $@ $(LDFLAGS)
 	ln -sf afl-as as
 
-hook_socket.so: hook_socket.c
-	$(CC) $(CFLAGS) -fPIC -shared -o hook_socket.so hook_socket.c -ldl
-    
 afl-fuzz: afl-fuzz.c $(COMM_HDR) aflnet.o aflnet.h | test_x86
-	$(CC) $(CFLAGS)  $@.c aflnet.o ./criu/lib/c/criu.o $(LIB_DIRS) -o $@ $(LDFLAGS)
+	$(CC) $(CFLAGS)  $@.c aflnet.o ./criu4snpsfuzzer/lib/c/criu.o $(LIB_DIRS) -o $@ $(LDFLAGS)
 
 afl-replay: afl-replay.c $(COMM_HDR) aflnet.o aflnet.h | test_x86
 	$(CC) $(CFLAGS) $@.c aflnet.o -o $@ $(LDFLAGS)
@@ -101,8 +93,8 @@ afl-analyze: afl-analyze.c $(COMM_HDR) | test_x86
 afl-gotcpu: afl-gotcpu.c $(COMM_HDR) | test_x86
 	$(CC) $(CFLAGS) $@.c -o $@ $(LDFLAGS)
 
-# kill_process: kill_process.c $(COMM_HDR) | test_x86
-# 	$(CC) $(CFLAGS)  $@.c -o $@ 
+kill_process: kill_process.c $(COMM_HDR) | test_x86
+	$(CC) $(CFLAGS)  $@.c -o $@ 
 
 ifndef AFL_NO_X86
 
@@ -156,10 +148,6 @@ endif
 	install -m 644 docs/README docs/ChangeLog docs/*.txt $${DESTDIR}$(DOC_PATH)
 	cp -r testcases/ $${DESTDIR}$(MISC_PATH)
 	cp -r dictionaries/ $${DESTDIR}$(MISC_PATH)
-	cp hook_socket.so /usr/local/lib/
-	# rm -r criu/compel/plugins/include/uapi/std/asm/syscall-types.h
-	# cd  criu && make clean && make && make install && cd lib/c/ && cp libcriu.so /usr/local/lib/libcriu.so.2
-	sudo ldconfig
 
 publish: clean
 	test "`basename $$PWD`" = "AFL" || exit 1

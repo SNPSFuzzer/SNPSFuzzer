@@ -222,12 +222,9 @@
   } while (0)
 
 /* Die while also including the output of perror(). */
-#include <stdio.h>
-FILE* snapshot_logfile;
 
 #define PFATAL(x...) do { \
     fflush(stdout); \
-    fflush(snapshot_logfile); \
     SAYF(bSTOP RESET_G1 CURSOR_SHOW cRST cLRD "\n[-]  SYSTEM ERROR : " \
          cBRI x); \
     SAYF(cLRD "\n    Stop location : " cRST "%s(), %s:%u\n", \
@@ -249,7 +246,7 @@ FILE* snapshot_logfile;
 #define ck_write(fd, buf, len, fn) do { \
     u32 _len = (len); \
     s32 _res = write(fd, buf, _len); \
-    if (_res != _len) RPFATAL(_res, "Short write to %s(%d/%u)", fn,_res,_len); \
+    if (_res != _len) RPFATAL(_res, "Short write to %s", fn); \
   } while (0)
 
 #define ck_read(fd, buf, len, fn) do { \
