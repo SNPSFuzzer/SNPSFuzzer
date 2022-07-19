@@ -1,0 +1,3 @@
+[submodule "criu4snpsfuzzer"]
+	path = criu4snpsfuzzer
+	url = https://gitee.com/singlebone/criu4snpsfuzzer

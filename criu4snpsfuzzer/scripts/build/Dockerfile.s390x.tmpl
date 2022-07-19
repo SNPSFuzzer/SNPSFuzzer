@@ -1,0 +1,45 @@
+ARG CC=gcc
+ARG ENV1=FOOBAR
+
+RUN apt-get update && apt-get install -y \
+	ccache \
+	libnet-dev \
+	libnl-route-3-dev \
+	$CC \
+	bsdmainutils \
+	build-essential \
+	git-core \
+	iptables \
+	libaio-dev \
+	libcap-dev \
+	libgnutls28-dev \
+	libgnutls30 \
+	libnl-3-dev \
+	libprotobuf-c0-dev \
+	libprotobuf-dev \
+	libselinux-dev \
+	pkg-config \
+	protobuf-c-compiler \
+	protobuf-compiler \
+	python-minimal \
+	python-future
+
+COPY . /criu
+WORKDIR /criu
+ENV CC="ccache $CC" CCACHE_DIR=/tmp/.ccache CCACHE_NOCOMPRESS=1 $ENV1=yes
+
+RUN mv .ccache /tmp && make mrproper && ccache -s && \
+	date && \
+# Check single object build
+	make -j $(nproc) CC="$CC" criu/parasite-syscall.o && \
+# Compile criu
+	make -j $(nproc) CC="$CC" && \
+	date && \
+# Check that "make mrproper" works
+	make mrproper && ! git clean -ndx --exclude=scripts/build \
+	--exclude=.config --exclude=test | grep .
+
+# Compile tests
+RUN date && make -j $(nproc) CC="$CC" -C test/zdtm && date
+
+#RUN make test/compel/handle_binary && ./test/compel/handle_binary
