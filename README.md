@@ -1,10 +1,12 @@
-# SNPSFuzzer
+# SNPSFuzzer（UDP-special Version）
 
 > This repository contains source code that belongs to [**SNPSFuzzer: A Fast Greybox Fuzzer for Stateful Network Protocols using Snapshots**](https://arxiv.org/abs/2202.03643)
 
 ## Introduction
 
-> to be written
+SNPSFuzzer, a fast greybox fuzzer for stateful network protocols using snapshots. SNPSFuzzer dumps the context information when the network protocol program is in a specific state and restores it when the state needs to be fuzzed.
+
+**This version can do better on UDP protols than master**
 
 ## Protocols Support
 
