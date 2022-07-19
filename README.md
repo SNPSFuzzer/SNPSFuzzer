@@ -17,7 +17,7 @@ We implement a prototype of SNPSFuzzer and evaluate it on a widely used open-sou
 ### Step I: clone
 
 ```bash
-git clone https://gitee.com/singlebone/snpsfuzzer.git
+git clone https://github.com/SNPSFuzzer/SNPSFuzzer.git
 export SNPSFUZZER=where the snpsfuzzer directory locates
 ```
 
