@@ -35,7 +35,7 @@ sudo apt-get --no-install-recommends install asciidoc
 sudo apt-get --no-install-recommends install xmlto
 ```
 
-**compiler**
+**build**
 
 ```
 cd $SNPSFUZZER
