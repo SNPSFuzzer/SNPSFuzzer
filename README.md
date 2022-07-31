@@ -76,6 +76,9 @@ cd ..
 sudo make install
 ```
 
+### Usage
+
+It's the same with AFLNet, except for extra command line arguments `-a <1/2/3>` to choose message chain analysis algorithm and `-b <ms>` to set the time threshold for restoring snapshots.
 
 
 
