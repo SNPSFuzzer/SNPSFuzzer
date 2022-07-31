@@ -1,6 +1,19 @@
-# SNPSFuzzer（UDP-special Version）
+## Citing SNPSFuzzer（UDP-special Version）
 
-> This repository contains source code that belongs to [**SNPSFuzzer: A Fast Greybox Fuzzer for Stateful Network Protocols using Snapshots**](https://arxiv.org/abs/2202.03643)
+[SNPSFuzzer](https://ieeexplore.ieee.org/document/9834960) has been accepted for publication at the IEEE Transactions on Information Forensics and Security (TIFS) 2022.
+
+```bibtex
+@ARTICLE{9834960,
+  author={Li, Junqiang and Li, Senyi and Sun, Gang and Chen, Ting and Yu, Hongfang},
+  journal={IEEE Transactions on Information Forensics and Security}, 
+  title={SNPSFuzzer: A Fast Greybox Fuzzer for Stateful Network Protocols Using Snapshots}, 
+  year={2022},
+  volume={17},
+  number={},
+  pages={2673-2687},
+  doi={10.1109/TIFS.2022.3192991}}
+```
+
 
 ## Introduction
 
