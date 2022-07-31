@@ -3,7 +3,7 @@
 [SNPSFuzzer](https://ieeexplore.ieee.org/document/9834960) has been accepted for publication at the IEEE Transactions on Information Forensics and Security (TIFS) 2022.
 
 ```bibtex
-@ARTICLE{9834960,
+@ARTICLE{snpsfuzzer,
   author={Li, Junqiang and Li, Senyi and Sun, Gang and Chen, Ting and Yu, Hongfang},
   journal={IEEE Transactions on Information Forensics and Security}, 
   title={SNPSFuzzer: A Fast Greybox Fuzzer for Stateful Network Protocols Using Snapshots}, 
